@@ -1,0 +1,11 @@
+venv/
+chroma_db/
+docs/
+Makefile
+DOC.md
+envvars
+*.sqlite3
+*.pyc
+__pycache__/
+__init__.py
+migrations/

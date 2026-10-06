@@ -1,0 +1,28 @@
+SHELL:=/bin/bash
+
+# Load local .env file if it exists (for credentials)
+-include ./envvars
+
+PYTHON = venv/bin/python3
+PIP = venv/bin/pip
+NVIDIA_API_KEY=nvapi-example
+SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+
+install:
+	$(PIP) install -r requirements.txt -i https://pypi.org/simple
+
+dotenv:
+	@echo "export NVIDIA_API_KEY=$(NVIDIA_API_KEY)" > ./envvars
+	@echo "export SSL_CERT_FILE=$(SSL_CERT_FILE)" >> ./envvars
+	@echo "export REQUESTS_CA_BUNDLE=$(REQUESTS_CA_BUNDLE)" >> ./envvars
+
+source:
+	@bash -c "source ./envvars && set -e; source ./envvars"
+
+
+venv:
+	test -d venv || $(PYTHON) -m venv venv
+	$(PIP) install --upgrade pip pip-tools
+
+init: venv install dotenv source

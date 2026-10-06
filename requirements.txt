@@ -1,0 +1,8 @@
+langchain
+langchain-community
+langchain-nvidia-ai-endpoints
+chromadb
+pypdf
+# openai
+# transformers
+# torch
